@@ -1,7 +1,7 @@
 Finite State Machine for C++
 ============================
 
-A simple, generic, header-only state machine implementation for C++.
+A simple, generic state machine implementation for C++.
 
 Documentation
 -------------
