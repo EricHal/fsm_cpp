@@ -12,8 +12,8 @@ the implemented features and semantics.
 Usage
 -----
 
-The implementation is contained in a single header file, `fsm.h`. Simply copy
-the file to a convenient place in your project and include it.
+copy fsm.h and fsm.cpp in your project. Check that the path to include fsm.h in fsm.cpp is correct
+
 
 Stability
 ---------
@@ -31,6 +31,8 @@ cd tests
 g++ -std=c++11 -Wall -o tests fsm_test.cpp
 ./tests
 ~~~
+
+Or open the xcode workspace and run
 
 Contributions
 -------------
