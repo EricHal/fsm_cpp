@@ -80,5 +80,10 @@ int sample() {
     assert(fsm.is_final());
     fsm.reset();
     assert(fsm.is_initial());
+    
+    delete EventA;
+    delete EventB;
+    delete stateA;
+    
     return 0;
 }

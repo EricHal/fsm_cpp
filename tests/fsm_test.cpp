@@ -53,6 +53,8 @@ TEST_CASE("Test Initialization")
 	FSM::Fsm fsm;
     FSM::Event * a = new FSM::Event();
 	REQUIRE(fsm.execute(a) == FSM::Fsm_NotInitialized);
+    
+    delete a;
 }
 
 TEST_CASE("Test initial and final pseudo states")
@@ -77,6 +79,8 @@ TEST_CASE("Test initial and final pseudo states")
 		REQUIRE(fsm.is_initial() == false);
 		REQUIRE(fsm.is_final() == true);
 	}
+    
+    delete a;
 }
 
 TEST_CASE("Test missing trigger")
@@ -90,6 +94,9 @@ TEST_CASE("Test missing trigger")
 	fsm.add_transitions(transitions.begin(), transitions.end());
 	fsm.init();
 	REQUIRE(fsm.execute(a) == FSM::Fsm_NoMatchingTrigger);
+    
+    delete a;
+    delete b;
 }
 
 TEST_CASE("Test guards")
@@ -105,7 +112,8 @@ TEST_CASE("Test guards")
 		REQUIRE(fsm.execute(a) == FSM::Fsm_Success);
 		// ensure that the transition to final is not taken (because of the guard).
 		REQUIRE(fsm.state()->getID() == (int)FSM::Fsm::Fsm_Initial->getID());
-	}
+        delete a;
+    }
 
 	SECTION("Test true guard") {
 		FSM::Fsm fsm;
@@ -118,7 +126,9 @@ TEST_CASE("Test guards")
 		REQUIRE(fsm.execute(a) == FSM::Fsm_Success);
 		// ensure that the transition to final is taken (because of the guard).
 		REQUIRE(fsm.state()->getID() == FSM::Fsm::Fsm_Final->getID());
-	}
+        
+        delete a;
+    }
 
 	SECTION("Test same action with different guards") {
 		int count = 0;
@@ -133,6 +143,8 @@ TEST_CASE("Test guards")
 		REQUIRE(fsm.execute(a) == FSM::Fsm_Success);
 		// ensure that action2 was taken (because of the guard).
 		REQUIRE(count == 10);
+        
+        delete a;
 	}
 }
 
@@ -153,6 +165,9 @@ TEST_CASE("Test Transitions")
 		REQUIRE(fsm.execute(a) == FSM::Fsm_Success);
 		// Ensure that only one action has executed.
 		REQUIRE(count == 1);
+        
+        delete a;
+        delete stateA;
 	}
 }
 
@@ -178,6 +193,10 @@ TEST_CASE("Test state machine reset")
 	REQUIRE(fsm.execute(a) == FSM::Fsm_Success);
 	REQUIRE(fsm.execute(b) == FSM::Fsm_Success);
 	REQUIRE(fsm.is_final() == true);
+    
+    delete a;
+    delete b;
+    delete stateA;
 }
 
 TEST_CASE("Test debug function")
@@ -215,6 +234,10 @@ TEST_CASE("Test debug function")
 		REQUIRE(dbg_to == 0);
 		REQUIRE(dbg_tr == 0);
 	}
+    
+    delete a;
+    delete b;
+    delete stateA;
 }
 
 TEST_CASE("Test single argument add_transitions function")
@@ -246,7 +269,10 @@ TEST_CASE("Test single argument add_transitions function")
 		fsm.execute(b);
 		REQUIRE(fsm.state() == FSM::Fsm::Fsm_Final);
 	}
-
+    
+    delete a;
+    delete b;
+    delete stateA;
 }
 
 TEST_CASE("Test enter and exit states functions")
@@ -266,6 +292,9 @@ TEST_CASE("Test enter and exit states functions")
         REQUIRE(fsm.execute(a) == FSM::Fsm_Success);
         // ensure that the enter state function is called once.
         REQUIRE(count == 1);
+        
+        delete a;
+        delete stateA;
     }
     
     SECTION("Test exit state") {
@@ -285,7 +314,10 @@ TEST_CASE("Test enter and exit states functions")
         REQUIRE(fsm.execute(a) == FSM::Fsm_Success);
         // ensure that the enter state function is called once.
         REQUIRE(count == 1);
-    }    
+
+        delete a;
+        delete stateA;
+    }
 }
 
 

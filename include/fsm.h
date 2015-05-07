@@ -171,6 +171,8 @@
 
 namespace FSM {
     
+    void dealocateFSMStatic();
+    
     enum Fsm_Errors {
         // Success
         Fsm_Success = 0,
@@ -271,7 +273,7 @@ namespace FSM {
         static State * Fsm_Final;
         
         // Constructor.
-        Fsm() : m_transitions(), m_cs(0), m_initialized(false), m_debug_fn(nullptr) {}
+        Fsm() : m_transitions(), m_cs(0), m_initialized(false), m_debug_fn(nullptr) {atexit(dealocateFSMStatic);}
         Fsm(const Fsm & orig);
         /**
          * Initializes the FSM.

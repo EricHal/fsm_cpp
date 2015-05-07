@@ -28,6 +28,7 @@
 //
 
 #include "../include/fsm.h"
+#include "stdlib.h"
 
 
 // static assignement
@@ -37,6 +38,13 @@ unsigned int FSM::State::__current_id = 0;
 
 FSM::State * FSM::Fsm::Fsm_Initial = new FSM::State;
 FSM::State * FSM::Fsm::Fsm_Final = new FSM::State;
+
+void FSM::dealocateFSMStatic() {
+    delete FSM::Fsm::Fsm_Initial;
+    FSM::Fsm::Fsm_Initial = nullptr;
+    delete FSM::Fsm::Fsm_Final;
+    FSM::Fsm::Fsm_Final = nullptr;
+}
 
 // Event class methods implementation
 
